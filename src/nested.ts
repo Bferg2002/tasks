@@ -1,5 +1,6 @@
 import { Answer } from "./interfaces/answer";
 import { Question, QuestionType } from "./interfaces/question";
+import { duplicateQuestion, makeBlankQuestion } from "./objects";
 
 /**
  * Consumes an array of questions and returns a new array with only the questions
@@ -156,7 +157,10 @@ export function publishAll(questions: Question[]): Question[] {
  * are the same type. They can be any type, as long as they are all the SAME type.
  */
 export function sameType(questions: Question[]): boolean {
-    return false;
+    const sameExactType = questions.every(
+        (question: Question): boolean => question.type === questions[0].type
+    );
+    return sameExactType;
 }
 
 /***
@@ -170,7 +174,8 @@ export function addNewQuestion(
     name: string,
     type: QuestionType
 ): Question[] {
-    return [];
+    const newQuestions = [...questions, makeBlankQuestion(id, name, type)];
+    return newQuestions;
 }
 
 /***
@@ -183,7 +188,11 @@ export function renameQuestionById(
     targetId: number,
     newName: string
 ): Question[] {
-    return [];
+    const newQuestions = questions.map(
+        (question: Question): Question =>
+            question.id === targetId ? { ...question, name: newName } : question
+    );
+    return newQuestions;
 }
 
 /***
@@ -198,7 +207,15 @@ export function changeQuestionTypeById(
     targetId: number,
     newQuestionType: QuestionType
 ): Question[] {
-    return [];
+    const newQuestions = questions.map(
+        (question: Question): Question =>
+            question.id === targetId
+                ? newQuestionType === "short_answer_question"
+                    ? { ...question, type: newQuestionType, options: [] }
+                    : { ...question, type: newQuestionType }
+                : { ...question }
+    );
+    return newQuestions;
 }
 
 /**
@@ -217,9 +234,30 @@ export function editOption(
     targetOptionIndex: number,
     newOption: string
 ): Question[] {
-    return [];
-}
+    const newQuestions = questions.map((question) => {
+        if (question.id === targetId) {
+            if (targetOptionIndex === -1) {
+                return {
+                    ...question,
+                    options: [...question.options, newOption]
+                };
+            } else {
+                return {
+                    ...question,
+                    options: modifyOptions(
+                        question,
+                        targetOptionIndex,
+                        newOption
+                    )
+                };
+            }
+        } else {
+            return question;
+        }
+    });
 
+    return newQuestions;
+}
 /***
  * Consumes an array of questions, and produces a new array based on the original array.
  * The only difference is that the question with id `targetId` should now be duplicated, with
@@ -231,5 +269,21 @@ export function duplicateQuestionInArray(
     targetId: number,
     newId: number
 ): Question[] {
-    return [];
+    const newQuestions = [...questions];
+    const index = newQuestions.findIndex(
+        (question: Question): boolean => targetId === question.id
+    );
+    const targetQuestion = duplicateQuestion(newId, questions[index]);
+    newQuestions.splice(index + 1, 0, targetQuestion);
+    return newQuestions;
+}
+
+function modifyOptions(
+    question: Question,
+    target: number,
+    value: string
+): string[] {
+    const temp = [...question.options];
+    temp.splice(target, 1, value);
+    return temp;
 }
