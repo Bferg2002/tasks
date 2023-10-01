@@ -1,5 +1,4 @@
 import React from "react";
-import pokemon from "./Images/gen-1.jpg";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import "./App.css";
 import { ChangeType } from "./components/ChangeType";
