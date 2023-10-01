@@ -2,6 +2,12 @@ import React from "react";
 import pokemon from "./Images/gen-1.jpg";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import "./App.css";
+import { ChangeType } from "./components/ChangeType";
+import { RevealAnswer } from "./components/RevealAnswer";
+import { StartAttempt } from "./components/StartAttempt";
+import { TwoDice } from "./components/TwoDice";
+import { CycleHoliday } from "./components/CycleHoliday";
+import { Counter } from "./components/Counter";
 
 function App(): JSX.Element {
     return (
@@ -9,35 +15,18 @@ function App(): JSX.Element {
             <header className="App-header">
                 UD CISC275 with React Hooks and TypeScript
             </header>
-            <h1>Bryant Ferguson Header</h1>
-            <p>
-                Edit <code>src/App.tsx</code> and save. This page will
-                automatically reload.
-            </p>
-            <img
-                src={pokemon}
-                alt="A picture of the generation 1 pokemon starters"
-            />
-            <ul>
-                <li>Charmander</li>
-                <li>Squirtle</li>
-                <li>Bulbasaur</li>
-            </ul>
-            <p>Bryant Ferguson was here!</p>
-            <p>Hello World!</p>
-            <Button onClick={() => console.log("Hello World!")}>
-                Log Hello World
-            </Button>
-            <Container>
-                <Row>
-                    <Col>
-                        <div id="d1"></div>
-                    </Col>
-                    <Col>
-                        <div id="d2"></div>
-                    </Col>
-                </Row>
-            </Container>
+            <hr></hr>
+            <Counter></Counter>
+            <hr />
+            <RevealAnswer></RevealAnswer>
+            <hr />
+            <StartAttempt></StartAttempt>
+            <hr />
+            <TwoDice></TwoDice>
+            <hr />
+            <ChangeType></ChangeType>
+            <hr />
+            <CycleHoliday></CycleHoliday>
         </div>
     );
 }
