@@ -14,7 +14,7 @@ function App(): JSX.Element {
                 UD CISC275 with React Hooks and TypeScript
             </header>
             <hr></hr>
-            <Counter></Counter>
+            <h1>Hello World</h1>;<Counter></Counter>
             <hr />
             <RevealAnswer></RevealAnswer>
             <hr />
