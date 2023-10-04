@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "react-bootstrap";
 import "./App.css";
 import { ChangeType } from "./components/ChangeType";
 import { RevealAnswer } from "./components/RevealAnswer";
@@ -14,7 +15,8 @@ function App(): JSX.Element {
                 UD CISC275 with React Hooks and TypeScript
             </header>
             <hr></hr>
-            <h1>Hello World</h1>;<Counter></Counter>
+            <h1>Hello World</h1>
+            <Counter></Counter>
             <hr />
             <RevealAnswer></RevealAnswer>
             <hr />
